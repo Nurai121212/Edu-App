@@ -1,7 +1,7 @@
 import s from './style.module.sass';
 import { observer } from "mobx-react-lite";
-
 import students from '../../store/Students';
+
 import StudentItem from '../StudentItem';
 
 export default observer(function StudentsList({subject}){

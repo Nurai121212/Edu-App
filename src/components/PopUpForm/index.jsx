@@ -1,13 +1,13 @@
 import s from './style.module.sass';
 import ClassNames from 'classnames'
+import { useEffect, useState  } from 'react';
 import { useForm } from 'react-hook-form'
 import { observer } from 'mobx-react-lite'
-
 import students from '../../store/Students';
+
 import Form from '../UI/Form';
-import { Input } from '../UI/Input';
-import { useEffect, useState  } from 'react';
 import MyButton from '../UI/MyButton';
+import { Input } from '../UI/Input';
 
 export default observer(function PopUpForm({state, switchFunc,  subject}){
   const [loading, setLoading] = useState(false);
@@ -39,7 +39,8 @@ export default observer(function PopUpForm({state, switchFunc,  subject}){
     };
 
     const res = await students.addStudent(result, subject);
-    if(!res){
+
+    if(!res.data){
       setError('score', {
         type: 'custom',
         message: 'Internal Server Error 500. Try again'

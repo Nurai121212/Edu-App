@@ -1,9 +1,11 @@
 import logo from '../../assets/app_logo.png';
 import s from './style.module.sass';
+import { observer } from 'mobx-react-lite';
+import users from '../../store/Users';
 
 import MyButton from '../UI/MyButton';
 
-export default function SideNav({setFunc, current, items}){
+export default observer(function SideNav({setFunc, current, items}){
   return(
     <div className={s.sideNav}>
       <div className={s.logo}>
@@ -22,6 +24,13 @@ export default function SideNav({setFunc, current, items}){
             </li>)
         })}
       </ul>
+      <div className={s.navBottom}>
+        <h1>
+          You've logged as:
+          <span>admin</span>
+        </h1>
+        <button onClick={() => users.logOut()}>Log out</button>
+      </div>
     </div>
   )
-}
+})

@@ -1,9 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import axios from 'axios';
-
-const instance = axios.create({
-  baseURL: 'http://localhost:1717/students'
-});
+import apiRequest from "../../apiRequest";
 
 class Students{
   loading = false;
@@ -19,7 +15,7 @@ class Students{
         this.loading = true;
       });
   
-      const res = await instance.get(`/${subject}`);
+      const res= await apiRequest.getStudents(subject);
 
       if(res.data){
         runInAction(() => {
@@ -27,7 +23,7 @@ class Students{
         })
       }
     }catch(e){
-      console.log(e);
+      console.error(e);
     }finally{
       runInAction(() => {
         this.loading = false
@@ -43,12 +39,13 @@ class Students{
 
   async addStudent(data, subject){
     try{
-      const res = await instance.post(`/${subject}/add`, data)
+      const res = await apiRequest.addStudent(subject, data);
+
       if(res.status === 200){
         this.getData(subject)
       }
-    }catch{
-      return false
+    }catch(e){
+      return e
     }
   }
 }

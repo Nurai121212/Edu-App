@@ -1,12 +1,11 @@
 import s from './style.module.sass';
 import ClassNames from 'classnames';
-import { observer } from "mobx-react-lite";
 import { useEffect, useCallback, useState } from "react";
-
+import { observer } from "mobx-react-lite";
 import students from "../../store/Students";
+
 import SideNav from "../../components/SideNav";
 import SubjectTab from '../../components/SubjectTab';
-
 
 export default observer(function Home(){
   const [current_sub, setCurrent_sub] = useState('');
@@ -30,7 +29,7 @@ export default observer(function Home(){
       />
       
       {students.loading ? (
-        <h1 className={ClassNames(s.title, s.loading)}>
+        <h1 className={s.title}>
           Student list is loading...
         </h1>) : (
         students.students[current_sub] ? (
