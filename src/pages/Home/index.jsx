@@ -14,28 +14,30 @@ export default observer(function Home(){
 
   const setCurrent = useCallback((sub) => {
     setCurrent_sub(sub)
-
-    if(!students.students[sub]){students.setLoading()}
-
     students.setStudents(sub)
   }, []);
 
   useEffect(() => {
     setCurrent('math')
-  }, [setCurrent])
+  }, [setCurrent]);
 
   return(
     <>
-      <SideNav setFunc={setCurrent} current={current_sub} items={defaultSubjects}/>
+      <SideNav 
+        setFunc={setCurrent} 
+        current={current_sub} 
+        items={defaultSubjects}
+      />
       
       {students.loading ? (
-        <h1 className={ClassNames(s.title, s.loading)}>Student list is loading...</h1>
-      ) : (
+        <h1 className={ClassNames(s.title, s.loading)}>
+          Student list is loading...
+        </h1>) : (
         students.students[current_sub] ? (
-          <SubjectTab subject={current_sub}/>
-        ) : (
-          <h1 className={ClassNames(s.title, s.error)}>Internal Server Error 500. Try again</h1>
-        )
+          <SubjectTab subject={current_sub}/>) : (
+          <h1 className={ClassNames(s.title, s.error)}>
+            Internal Server Error 500. Try again
+          </h1>)
       )}
     </>
   )

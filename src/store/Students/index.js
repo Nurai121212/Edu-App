@@ -6,22 +6,26 @@ const instance = axios.create({
 });
 
 class Students{
-  loading = true;
+  loading = false;
   students = {};
 
   constructor(){
     makeAutoObservable(this)
   }
 
-  async setStudents(subject){
-    if(`${subject}` in this.students){return false};
-
+  async getData(subject){
     try{
-      const res = await instance.get(`/${subject}`);
-      
       runInAction(() => {
-        this.students[subject] = res.data
-      })
+        this.loading = true;
+      });
+  
+      const res = await instance.get(`/${subject}`);
+
+      if(res.data){
+        runInAction(() => {
+          this.students[subject] = res.data
+        })
+      }
     }catch(e){
       console.log(e);
     }finally{
@@ -31,8 +35,21 @@ class Students{
     }
   }
 
-  setLoading(){
-    this.loading = true;
+  setStudents(subject){
+    if(`${subject}` in this.students){return false};
+
+    this.getData(subject)
+  }
+
+  async addStudent(data, subject){
+    try{
+      const res = await instance.post(`/${subject}/add`, data)
+      if(res.status === 200){
+        this.getData(subject)
+      }
+    }catch{
+      return false
+    }
   }
 }
 

@@ -7,10 +7,22 @@
     border-radius: 6px
     font-size: 14px
     line-height: 16px
+    font-weight: 700
     color: #3E4554
     transition: .2s
+    &.formBtn
+        background: #81A0DE
+        border: 0
+        color: #fff
+        &:hover
+            &:not([disabled])
+                background: #465778
     &:hover
-        border: 1px solid #81A0DE
-
-.active
-    background: #B1BBD0
+        &:not([disabled])
+            border: 0
+            background: #dfe4ed
+    &:disabled
+        background: #B1BBD0
+        color: #fff
+    &.active
+        background: #e2e4ea
