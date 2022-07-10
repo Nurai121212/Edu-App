@@ -15,13 +15,13 @@ class User{
 
       if(res.data){
         Cookies.set('my_token', res.data.token);
-        console.log('its okey');
+
         runInAction(() => {
           this.user = res.data;
         })
       }
     }catch(e){
-      console.log(e);
+      return e
     }
   }
 
