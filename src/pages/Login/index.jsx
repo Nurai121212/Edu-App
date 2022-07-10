@@ -22,8 +22,8 @@ export default observer(function Login(){
     setLoading(true);
 
     const res = await users.loginUser(data);
-    
-    if(res.status !== 200){
+
+    if(res && res.status !== 200){
       setError('password', {
         type: 'custom',
         message: 'Error. Try again'
